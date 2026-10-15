@@ -2,6 +2,7 @@ package br.com.fiap.motiva;
 import br.com.fiap.motiva.excecao.DadoInvalidoException;
 import br.com.fiap.motiva.localizacao.Linha;
 import br.com.fiap.motiva.localizacao.Estacao;
+import br.com.fiap.motiva.equipamento.CodigoSap;
 
 public class Main {
     public static void main(String[] args) {
@@ -34,6 +35,21 @@ public class Main {
 
         try {
             new Estacao("", "Pinheiros", linha4);
+        } catch (DadoInvalidoException e) {
+            System.out.println("Erro esperado: " + e.getMessage());
+        }
+
+        // CodigoSap
+        CodigoSap codigo1 = new CodigoSap(" sp04-6-ecr-pin-er32 ");
+        CodigoSap codigo2 = new CodigoSap("SP04-6-ECR-PIN-ER32");
+
+        System.out.println(codigo1);
+        System.out.println(codigo1.getSiglaEstacao());
+        System.out.println(codigo1.equals(codigo2));
+        System.out.println(codigo1 == codigo2);
+
+        try {
+            new CodigoSap("ESCADA-32");
         } catch (DadoInvalidoException e) {
             System.out.println("Erro esperado: " + e.getMessage());
         }
