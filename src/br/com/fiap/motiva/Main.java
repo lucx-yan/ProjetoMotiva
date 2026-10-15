@@ -1,4 +1,5 @@
 package br.com.fiap.motiva;
+import br.com.fiap.motiva.excecao.DadoInvalidoException;
 import br.com.fiap.motiva.localizacao.Linha;
 import br.com.fiap.motiva.localizacao.Estacao;
 
@@ -12,7 +13,7 @@ public class Main {
 
         try {
             new Linha(-4, "Amarela", "ViaQuatro");
-        } catch (IllegalArgumentException e) {
+        } catch (DadoInvalidoException e) {
             System.out.println("Erro esperado: " + e.getMessage());
         }
 
@@ -27,13 +28,13 @@ public class Main {
 
         try {
             new Estacao("PIN", "Pinheiros", null);
-        } catch (IllegalArgumentException e) {
+        } catch (DadoInvalidoException e) {
             System.out.println("Erro esperado: " + e.getMessage());
         }
 
         try {
             new Estacao("", "Pinheiros", linha4);
-        } catch (IllegalArgumentException e) {
+        } catch (DadoInvalidoException e) {
             System.out.println("Erro esperado: " + e.getMessage());
         }
     }

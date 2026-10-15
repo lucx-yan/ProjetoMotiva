@@ -1,8 +1,6 @@
 package br.com.fiap.motiva.excecao;
 
-/** Usado quando os dados são válidos um a um, mas a combinação fere uma regra de negócio.
- * (Exemplo: escada com código da estação PIN cadastrada em outra estação.)
- * */
+// Usado quando os dados são válidos, mas a combinação fere uma regra de negócio.
 
 public class RegraNegocioException extends RuntimeException {
     public RegraNegocioException(String mensagem) {
