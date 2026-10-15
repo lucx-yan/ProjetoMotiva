@@ -1,19 +1,14 @@
 package br.com.fiap.motiva.localizacao;
 
-/** Estação onde as escadas rolantes estão instaladas, toda estação pertence a uma linha.
- *
- * @author Gustavo Macedo Daniel
- * @author João Victor Melo Santos
- * @author Murilo Jeronimo Ferreira Nunes
- * @author Vinicius Kozonoe Guaglini
- * @author Yan Lucas Gonçalves da Silva
- * */
+import br.com.fiap.motiva.excecao.DadoInvalidoException;
+
+// Estação onde as escadas rolantes estão instaladas; toda estação pertence a uma linha.
 
 public class Estacao {
 
-    private String sigla; // Sigla da estacao (Exemplo: PIN)
+    private final String sigla; // Sigla da estacao (Exemplo: PIN)
     private String nome; // Nome da estacao (Exemplo: Pinheiros)
-    private Linha linha; // Linha que a estação pertence
+    private final Linha linha; // Linha que a estação pertence
 
     public Estacao(String sigla, String nome, Linha linha) {
         this.sigla = validarTexto(sigla, "sigla da estação").toUpperCase();
@@ -24,11 +19,6 @@ public class Estacao {
     // Retorna a sigla da estação
     public String getSigla() {
         return sigla;
-    }
-
-    // Altera a sigla da estação
-    public void setSigla(String sigla) {
-        this.sigla = validarTexto(sigla, "sigla da estação").toUpperCase();
     }
 
     // Retorna o nome da estação
@@ -46,11 +36,6 @@ public class Estacao {
         return linha;
     }
 
-    // Altera a linha da estação
-    public void setLinha(Linha linha) {
-        this.linha = validarLinha(linha);
-    }
-
     public String getIdentificacao() {
         return nome + " (" + linha.getNomeCompleto() + ")";
     }
@@ -60,18 +45,18 @@ public class Estacao {
         return "Estação " + getSigla() + " - " + getIdentificacao();
     }
 
-    /** Garante que o texto não seja nulo ou vazio. */
+    // Garante que o texto não seja nulo ou vazio
     private static String validarTexto(String valor, String campo) {
         if (valor == null || valor.isBlank()) {
-            throw new IllegalArgumentException("O campo " + campo + " é obrigatório.");
+            throw new DadoInvalidoException("O campo " + campo + " é obrigatório.");
         }
         return valor.trim();
     }
 
-    /** Garante que a linha não seja nulo. */
+    // Garante que a linha não seja nulo
     private static Linha validarLinha(Linha linha) {
         if (linha == null) {
-            throw new IllegalArgumentException("A estação precisa pertencer a uma linha.");
+            throw new DadoInvalidoException("A estação precisa pertencer a uma linha.");
         }
         return linha;
     }
