@@ -3,6 +3,9 @@ import br.com.fiap.motiva.excecao.DadoInvalidoException;
 import br.com.fiap.motiva.localizacao.Linha;
 import br.com.fiap.motiva.localizacao.Estacao;
 import br.com.fiap.motiva.equipamento.CodigoSap;
+import br.com.fiap.motiva.equipamento.Criticidade;
+import br.com.fiap.motiva.equipamento.EscadaRolante;
+import br.com.fiap.motiva.excecao.RegraNegocioException;
 
 public class Main {
     public static void main(String[] args) {
@@ -50,6 +53,39 @@ public class Main {
 
         try {
             new CodigoSap("ESCADA-32");
+        } catch (DadoInvalidoException e) {
+            System.out.println("Erro esperado: " + e.getMessage());
+        }
+
+        // EscadaRolante
+        Estacao fariaLima = new Estacao("FAL", "Faria Lima", linha4);
+
+        EscadaRolante er32 = new EscadaRolante(new CodigoSap("SP04-6-ECR-PIN-ER32"), pinheiros, "TUGELA", Criticidade.CRITICA, 91);
+        EscadaRolante er22 = new EscadaRolante(new CodigoSap("SP04-6-ECR-PIN-ER22"), pinheiros, "TUGELA", Criticidade.CRITICA, 112);
+        EscadaRolante er04 = new EscadaRolante(new CodigoSap("SP04-6-ECR-PIN-ER04"), pinheiros, "ESCAL", Criticidade.CRITICA, 116, 0.5, 400);
+        EscadaRolante fal06 = new EscadaRolante(new CodigoSap("SP04-6-ECR-FAL-ER06"), fariaLima, "TUGELA", Criticidade.NAO_CRITICA, 114);
+
+        System.out.println(er32);
+        System.out.println(fal06);
+        System.out.println(er32.isCritica());
+        System.out.println(fal06.isCritica());
+        System.out.println(er32.isMesmoGrupoDe(er22));
+        System.out.println(er32.isMesmoGrupoDe(er04));
+        System.out.println(er32.isMesmoGrupoDe(fal06));
+        System.out.println(er32.getVelocidadeNominal() + " m/s, passo " +er32.getPassoNominal() + " mm");
+
+        // simulando uma reclassificação
+        fal06.setCriticidade(Criticidade.CRITICA);
+        System.out.println(er32.isMesmoGrupoDe(fal06));
+
+        try {
+            new EscadaRolante(new CodigoSap("SP04-6-ECR-PIN-ER32"), fariaLima, "TUGELA", Criticidade.CRITICA, 91);
+        } catch (RegraNegocioException e) {
+            System.out.println("Erro esperado: " + e.getMessage());
+        }
+
+        try {
+            new EscadaRolante(new CodigoSap("SP04-6-ECR-PIN-ER32"), pinheiros, "TUGELA", Criticidade.CRITICA, 0);
         } catch (DadoInvalidoException e) {
             System.out.println("Erro esperado: " + e.getMessage());
         }
