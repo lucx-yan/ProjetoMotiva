@@ -8,7 +8,9 @@ import br.com.fiap.motiva.excecao.RegraNegocioException;
 import br.com.fiap.motiva.localizacao.Estacao;
 import br.com.fiap.motiva.localizacao.Linha;
 
-public class EqupamentoTeste {
+// Driver de teste do pacote equipamento (CodigoSap e EscadaRolante)
+
+public class EquipamentoTeste {
     public static void main(String[] args) {
         System.out.println("TESTE EQUIPAMENTO");
 

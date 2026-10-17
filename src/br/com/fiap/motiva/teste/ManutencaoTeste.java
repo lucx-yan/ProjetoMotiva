@@ -14,6 +14,8 @@ import br.com.fiap.motiva.manutencao.RotinaPreventiva;
 
 import java.time.LocalDate;
 
+// Driver de teste do pacote manutencao (preventiva, corretiva e rotinas)
+
 public class ManutencaoTeste {
     public static void main(String[] args) {
         System.out.println("TESTE MANUTENÇÃO");
